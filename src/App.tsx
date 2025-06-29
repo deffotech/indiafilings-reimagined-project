@@ -7,6 +7,11 @@ import { CartProvider } from "@/contexts/CartContext";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
+import MyOrders from "./pages/MyOrders";
+
+
+
 import BusinessRegistration from "./pages/BusinessRegistration";
 import Registrations from "./pages/Registrations";
 import Consultation from "./pages/Consultation";
@@ -180,6 +185,10 @@ const App = () => (
             <Route path="/partnership-compliance" element={<PartnershipCompliance />} />
             <Route path="/proprietorship-compliance" element={<ProprietorshipCompliance />} />
             <Route path="/bookkeeping" element={<Bookkeeping />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/checkout" element={<Checkout />} />
+             <Route path="/profile" element={<Profile />} />
+             <Route path="/my-orders" element={<MyOrders />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
