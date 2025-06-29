@@ -7,7 +7,7 @@ const HeroSection = () => {
         <section>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
                 <div className="md:col-span-1">
-                    <img src="/lovable-uploads/5fd975d6-4b56-42d1-844d-43a388c285f5.png" alt="GSTR-10" className="rounded-lg w-full shadow-md" />
+                    <img src="/assets/5fd975d6-4b56-42d1-844d-43a388c285f5.png" alt="GSTR-10" className="rounded-lg w-full shadow-md" />
                 </div>
                 <div className="md:col-span-2">
                     <h1 className="text-2xl md:text-3xl font-bold text-gray-800">

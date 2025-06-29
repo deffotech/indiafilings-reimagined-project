@@ -8,7 +8,7 @@ const HeroSection = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="relative">
           <img 
-            src="/lovable-uploads/f6943072-16a1-4ed4-ada7-494ea3a433fe.png" 
+            src="/assets/f6943072-16a1-4ed4-ada7-494ea3a433fe.png" 
             alt="Business Tax Filing" 
             className="w-full h-64 object-cover rounded-lg"
           />

@@ -6,7 +6,7 @@ const HeroSection = () => {
         <section>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
                 <div className="md:col-span-1">
-                    <img src="/lovable-uploads/8f5a9b8e-901a-44fe-8254-7060ce84a2e7.png" alt="GST Return Filing" className="rounded-lg w-full shadow-md" />
+                    <img src="/assets/8f5a9b8e-901a-44fe-8254-7060ce84a2e7.png" alt="GST Return Filing" className="rounded-lg w-full shadow-md" />
                     <div className="mt-4 space-y-2 text-sm text-gray-600">
                         <p>Invoice</p>
                         <p>Purchase Invoices</p>
@@ -46,4 +46,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-

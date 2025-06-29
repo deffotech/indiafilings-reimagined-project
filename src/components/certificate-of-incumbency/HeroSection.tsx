@@ -8,7 +8,7 @@ const HeroSection = () => {
     <Card className="overflow-hidden">
       <div className="grid md:grid-cols-12">
         <div className="md:col-span-5 flex items-center justify-center p-4">
-           <img src="/lovable-uploads/b86200c6-26c2-476e-a3ac-94747ba673dd.png" alt="Certificate of Incumbency" className="object-contain rounded-lg max-h-[450px]" />
+           <img src="/assets/b86200c6-26c2-476e-a3ac-94747ba673dd.png" alt="Certificate of Incumbency" className="object-contain rounded-lg max-h-[450px]" />
         </div>
         <div className="md:col-span-7 p-8">
           <h1 className="text-3xl font-bold">Certificate of Incumbency</h1>

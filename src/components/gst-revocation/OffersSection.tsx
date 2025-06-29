@@ -13,7 +13,7 @@ const OffersSection = () => {
             <div className="space-y-4">
                 <Card>
                     <CardContent className="p-4 flex items-center">
-                        <img src="/lovable-uploads/b86200c6-26c2-476e-a3ac-94747ba673dd.png" alt="Ledgers Logo" className="h-10 mr-4" />
+                        <img src="/assets/b86200c6-26c2-476e-a3ac-94747ba673dd.png" alt="Ledgers Logo" className="h-10 mr-4" />
                         <div>
                             <h3 className="font-semibold text-gray-800">LEDGERS - Compliance Platform</h3>
                             <p className="text-sm text-gray-600">Invoicing, GST Filing, Banking and Payroll</p>
@@ -22,7 +22,7 @@ const OffersSection = () => {
                 </Card>
                  <Card>
                     <CardContent className="p-4 flex items-center">
-                        <img src="/lovable-uploads/3a16634c-246d-4475-8774-b29e6d955635.png" alt="GSTIN Logo" className="h-10 mr-4" />
+                        <img src="/assets/3a16634c-246d-4475-8774-b29e6d955635.png" alt="GSTIN Logo" className="h-10 mr-4" />
                         <div>
                             <h3 className="font-semibold text-gray-800">Save 18% with GST Registration</h3>
                             <p className="text-sm text-gray-600">Get GST eInvoice with Input Tax Credit</p>
@@ -36,4 +36,3 @@ const OffersSection = () => {
 };
 
 export default OffersSection;
-

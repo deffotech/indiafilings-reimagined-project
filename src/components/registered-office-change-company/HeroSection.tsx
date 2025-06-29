@@ -7,7 +7,7 @@ const HeroSection = () => {
       <div className="grid lg:grid-cols-2 gap-8 items-start">
         <div>
           <img 
-            src="/lovable-uploads/c4b8ab65-8c75-415f-b6c6-25ac167d25d1.png" 
+            src="/assets/c4b8ab65-8c75-415f-b6c6-25ac167d25d1.png" 
             alt="Registered Office Change - Company" 
             className="rounded-lg shadow-lg w-full"
           />

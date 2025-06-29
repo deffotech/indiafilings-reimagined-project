@@ -9,7 +9,7 @@ const HeroSection = () => {
       <CardContent className="p-0">
         <div className="grid md:grid-cols-12 gap-0">
           <div className="md:col-span-4">
-            <img src="/lovable-uploads/apeda-hero.png" alt="APEDA Registration" className="h-full w-full object-cover" />
+            <img src="/assets/apeda-hero.png" alt="APEDA Registration" className="h-full w-full object-cover" />
           </div>
           <div className="md:col-span-8 p-6 md:p-8">
             <h1 className="text-2xl md:text-3xl font-bold text-gray-800">APEDA Registration</h1>
@@ -51,4 +51,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-

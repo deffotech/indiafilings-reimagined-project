@@ -9,7 +9,7 @@ const HeroSection = () => {
       <div className="grid md:grid-cols-12">
         <div className="md:col-span-4">
           <div className="h-full min-h-[550px] bg-gray-200">
-            <img src="/lovable-uploads/8f5a9b8e-901a-44fe-8254-7060ce84a2e7.png" alt="Drug License" className="w-full h-full object-cover" />
+            <img src="/assets/8f5a9b8e-901a-44fe-8254-7060ce84a2e7.png" alt="Drug License" className="w-full h-full object-cover" />
           </div>
         </div>
         <div className="md:col-span-8 p-8">
