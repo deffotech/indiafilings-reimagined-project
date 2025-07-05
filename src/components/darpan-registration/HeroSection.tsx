@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Star, ChevronRight } from "lucide-react";
@@ -7,7 +8,7 @@ const HeroSection = () => {
     <Card className="overflow-hidden">
       <div className="grid md:grid-cols-12">
         <div className="md:col-span-5 flex items-center justify-center p-4">
-           <img src="/assets/darpan-hero.png" alt="Darpan Registration" className="object-contain rounded-lg max-h-[450px]" />
+           <img src="/lovable-uploads/darpan-hero.png" alt="Darpan Registration" className="object-contain rounded-lg max-h-[450px]" />
         </div>
         <div className="md:col-span-7 p-8">
           <h1 className="text-3xl font-bold">Darpan Registration</h1>

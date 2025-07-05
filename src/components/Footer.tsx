@@ -1,133 +1,78 @@
 
-import { Building2, Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Facebook, MessageCircle, Twitter, Youtube } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
-  const services = [
-    "Company Registration",
-    "GST Registration", 
-    "Trademark Registration",
-    "Income Tax Filing",
-    "FSSAI Registration",
-    "Import Export Code",
-    "Digital Signature",
-    "Startup India Registration"
-  ];
-
-  const company = [
-    "About Us",
-    "Our Team", 
-    "Careers",
-    "Press & Media",
-    "Customer Reviews",
-    "Success Stories",
-    "Blog",
-    "Contact Us"
-  ];
-
-  const support = [
-    "Help Center",
-    "Track Application",
-    "Document Checklist",
-    "Pricing",
-    "Refund Policy",
-    "Terms of Service",
-    "Privacy Policy",
-    "Site Map"
-  ];
-
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
-          {/* Company Info */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                <Building2 className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold">IndiaFilings</h3>
-            </div>
-            <p className="text-gray-400 mb-6 leading-relaxed">
-              India's most trusted business services platform, helping entrepreneurs and businesses navigate regulatory compliance with ease and confidence.
-            </p>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-blue-400" />
-                <span className="text-gray-300">+91 80 4718 4222</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-blue-400" />
-                <span className="text-gray-300">support@indiafilings.com</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <MapPin className="h-5 w-5 text-blue-400" />
-                <span className="text-gray-300">Bangalore, Karnataka, India</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Services */}
+    <footer className="bg-gray-100 py-12">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid md:grid-cols-4 gap-8 mb-8">
+          {/* IndiaFilings Column */}
           <div>
-            <h4 className="text-lg font-semibold mb-6">Services</h4>
-            <ul className="space-y-3">
-              {services.map((service, index) => (
-                <li key={index}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    {service}
-                  </a>
-                </li>
-              ))}
+            <h4 className="font-semibold text-gray-900 mb-4">IndiaFilings</h4>
+            <ul className="space-y-2">
+              <li><Link to="/about-us" className="text-gray-600 hover:text-blue-600 text-sm">About IndiaFilings</Link></li>
+              <li><a href="#" className="text-gray-600 hover:text-blue-600 text-sm">Careers</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-blue-600 text-sm">Contact Us</a></li>
             </ul>
           </div>
 
-          {/* Company */}
+          {/* Platforms Column */}
           <div>
-            <h4 className="text-lg font-semibold mb-6">Company</h4>
-            <ul className="space-y-3">
-              {company.map((item, index) => (
-                <li key={index}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    {item}
-                  </a>
-                </li>
-              ))}
+            <h4 className="font-semibold text-gray-900 mb-4">Platforms</h4>
+            <ul className="space-y-2">
+              <li><a href="#" className="text-gray-600 hover:text-blue-600 text-sm">Business Search</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-blue-600 text-sm">Trademark Search</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-blue-600 text-sm">Filings.AE for UAE</a></li>
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Usage Column */}
           <div>
-            <h4 className="text-lg font-semibold mb-6">Support</h4>
-            <ul className="space-y-3">
-              {support.map((item, index) => (
-                <li key={index}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    {item}
-                  </a>
-                </li>
-              ))}
+            <h4 className="font-semibold text-gray-900 mb-4">Resources</h4>
+            <ul className="space-y-2">
+              <li><Link to="/guide" className="text-gray-600 hover:text-blue-600 text-sm">Business Setup Guide</Link></li>
+              <li><a href="#" className="text-gray-600 hover:text-blue-600 text-sm">Terms & Conditions</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-blue-600 text-sm">Privacy Policy</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-blue-600 text-sm">Refund Policy</a></li>
+            </ul>
+          </div>
+
+          {/* Additional Links Column */}
+          <div>
+            <h4 className="font-semibold text-gray-900 mb-4">More</h4>
+            <ul className="space-y-2">
+              <li><a href="#" className="text-gray-600 hover:text-blue-600 text-sm">Confidentiality Policy</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-blue-600 text-sm">Disclaimer Policy</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-blue-600 text-sm">IndiaFilings Review</a></li>
             </ul>
           </div>
         </div>
 
-        {/* Social Media & Copyright */}
-        <div className="border-t border-gray-800 pt-8">
+        {/* Bottom section */}
+        <div className="border-t pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex space-x-6 mb-4 md:mb-0">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Facebook className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Twitter className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Linkedin className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Instagram className="h-6 w-6" />
-              </a>
+            <div className="text-sm text-gray-600 mb-4 md:mb-0">
+              <p>Copyright © 2025 IndiaFilings Private Limited. All rights reserved.</p>
+              <p className="mt-1">
+                Unless otherwise indicated, all materials on these pages are copyrighted by IndiaFilings Private Limited. All rights reserved. No part of these pages, either text or image may be used for any purpose.
+              </p>
             </div>
-            <div className="text-gray-400 text-sm">
-              © 2024 IndiaFilings. All rights reserved.
+            
+            {/* Social Media Icons */}
+            <div className="flex space-x-4">
+              <a href="#" className="text-gray-400 hover:text-blue-600">
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-green-600">
+                <MessageCircle className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-blue-400">
+                <Twitter className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-red-600">
+                <Youtube className="h-5 w-5" />
+              </a>
             </div>
           </div>
         </div>

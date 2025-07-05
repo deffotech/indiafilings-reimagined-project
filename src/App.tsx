@@ -5,7 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
 import Index from "./pages/Index";
-import Auth from "./pages/Auth";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
 import BusinessRegistration from "./pages/BusinessRegistration";
 import Registrations from "./pages/Registrations";
@@ -87,9 +88,23 @@ import Bookkeeping from "./pages/Bookkeeping";
 import Checkout from "./pages/Checkout";
 import AboutUs from "./pages/AboutUs";
 import Guide from "./pages/Guide";
+import FifteenCA15CBFiling from "./pages/15CA15CBFiling";
+import TANRegistration from "./pages/TANRegistration";
+import TDSReturnFiling from "./pages/TDSReturnFiling";
+import IncomeTaxNotice from "./pages/IncomeTaxNotice";
+import DINReactivation from "./pages/DINReactivation";
+import MOAAmendment from "./pages/MOAAmendment";
+import AOAAmendment from "./pages/AOAAmendment";
+import AuthorizedCapitalIncrease from "./pages/AuthorizedCapitalIncrease";
+import ShareTransfer from "./pages/ShareTransfer";
+import DematOfShares from "./pages/DematOfShares";
+import WindingUpLLP from "./pages/WindingUpLLP";
+import WindingUpCompany from "./pages/WindingUpCompany";
 import UdyamRegistration from "./pages/UdyamRegistration";
-import AllUpdates from "./pages/AllUpdates";
-import StartYourBusiness from "./pages/StartYourBusiness";
+import FCRARegistration from "./pages/FCRARegistration";
+import NidhiCompany from "./pages/NidhiCompany";
+import DirectorChange from "./pages/DirectorChange";
+import DPT3Filing from "./pages/DPT3Filing";
 
 const queryClient = new QueryClient();
 
@@ -102,12 +117,11 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/auth" element={<Auth />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/guide" element={<Guide />} />
-            <Route path="/all-updates" element={<AllUpdates />} />
-            <Route path="/start-your-business" element={<StartYourBusiness />} />
             <Route path="/business-registration" element={<BusinessRegistration />} />
             <Route path="/registrations" element={<Registrations />} />
             <Route path="/consultation" element={<Consultation />} />
@@ -185,8 +199,23 @@ const App = () => (
             <Route path="/partnership-compliance" element={<PartnershipCompliance />} />
             <Route path="/proprietorship-compliance" element={<ProprietorshipCompliance />} />
             <Route path="/bookkeeping" element={<Bookkeeping />} />
+            <Route path="/15ca-15cb-filing" element={<FifteenCA15CBFiling />} />
+            <Route path="/tan-registration" element={<TANRegistration />} />
+            <Route path="/tds-return-filing" element={<TDSReturnFiling />} />
+            <Route path="/income-tax-notice" element={<IncomeTaxNotice />} />
+            <Route path="/din-reactivation" element={<DINReactivation />} />
+            <Route path="/moa-amendment" element={<MOAAmendment />} />
+            <Route path="/aoa-amendment" element={<AOAAmendment />} />
+            <Route path="/authorized-capital-increase" element={<AuthorizedCapitalIncrease />} />
+            <Route path="/share-transfer" element={<ShareTransfer />} />
+            <Route path="/demat-of-shares" element={<DematOfShares />} />
+            <Route path="/winding-up-llp" element={<WindingUpLLP />} />
+            <Route path="/winding-up-company" element={<WindingUpCompany />} />
             <Route path="/udyam-registration" element={<UdyamRegistration />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="/fcra-registration" element={<FCRARegistration />} />
+            <Route path="/nidhi-company" element={<NidhiCompany />} />
+            <Route path="/director-change" element={<DirectorChange />} />
+            <Route path="/dpt3-filing" element={<DPT3Filing />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

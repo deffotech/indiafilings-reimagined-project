@@ -7,7 +7,7 @@ const HeroSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div>
           <img
-            src="/assets/2e0eb538-4ea1-4244-9f45-a8bd6dff2b87.png"
+            src="/lovable-uploads/2e0eb538-4ea1-4244-9f45-a8bd6dff2b87.png"
             alt="Copyright Registration Service"
             className="rounded-lg shadow-lg w-full"
           />

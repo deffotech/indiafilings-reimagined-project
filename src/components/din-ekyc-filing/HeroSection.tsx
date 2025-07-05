@@ -1,3 +1,4 @@
+
 import { Star, ChevronRight } from "lucide-react";
 import {
   Select,
@@ -13,11 +14,11 @@ const HeroSection = () => {
       <div className="grid lg:grid-cols-2 gap-8 items-start">
         <div>
           <img 
-            src="/assets/af989a02-fb0a-4ebe-8f38-b557e0fd82e3.png" 
+            src="/lovable-uploads/af989a02-fb0a-4ebe-8f38-b557e0fd82e3.png" 
             alt="DIN eKYC Filing" 
             className="rounded-lg shadow-lg w-full"
           />
-          <div className="mt-4 p-4 border-t">
+           <div className="mt-4 p-4 border-t">
             <p className="text-gray-600">PAN Card</p>
             <p className="text-gray-600">Aadhaar Card</p>
             <button className="text-blue-600 hover:underline mt-2">Load More</button>

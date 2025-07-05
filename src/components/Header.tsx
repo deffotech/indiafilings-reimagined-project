@@ -1,10 +1,10 @@
-
 import { Phone, Mail, Search, ShoppingCart, User, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { cn } from "@/lib/utils";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCart } from '@/contexts/CartContext';
 import CartDropdown from '@/components/CartDropdown';
+import { supabase } from '@/integrations/supabase/client';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -195,6 +195,30 @@ const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check current user session
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUser(session?.user || null);
+    };
+    
+    checkUser();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user || null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate('/');
+  };
 
   // Search data - all available services
   const allServices = [
@@ -222,6 +246,11 @@ const Header = () => {
     { name: "Digital Signature", path: "/digital-signature" },
     { name: "PF Registration", path: "/pf-registration" },
     { name: "ESI Registration", path: "/esi-registration" },
+    { name: "Demat of Shares", path: "/demat-of-shares" },
+    { name: "Winding Up - LLP", path: "/winding-up-llp" },
+    { name: "Winding Up - Company", path: "/winding-up-company" },
+    { name: "Udyam Registration", path: "/udyam-registration" },
+    { name: "FCRA Registration", path: "/fcra-registration" },
   ];
 
   // Filter services based on search query
@@ -248,7 +277,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm overflow-visible relative z-50">
+    <header className="bg-white shadow-sm relative z-50">
       {/* Top contact bar */}
       <div className="bg-green-50 py-2 px-2 sm:px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-xs sm:text-sm">
@@ -269,7 +298,7 @@ const Header = () => {
       </div>
 
       {/* Main navigation */}
-      <nav className="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-3 relative z-50">
+      <nav className="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-3 relative">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
@@ -282,17 +311,17 @@ const Header = () => {
           </div>
 
           {/* Navigation menu - optimized for different screen sizes */}
-          <div className="hidden xl:flex items-center justify-center flex-1 max-w-4xl mx-4">
+          <div className="hidden xl:flex items-center justify-center flex-1 max-w-4xl mx-4 relative z-50">
             <div className="flex items-center space-x-1 text-xs font-medium">
               {/* Startup and Registrations NavigationMenu */}
-              <NavigationMenu className="relative z-[100]">
+              <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="px-1 py-1 font-medium bg-transparent text-gray-700 hover:text-green-600 focus:bg-transparent data-[state=open]:bg-transparent data-[active]:bg-transparent focus:text-green-600 h-auto text-xs">
                       Startup
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent className="z-[100]">
-                      <div className="grid w-[750px] gap-6 p-6 md:grid-cols-3 bg-white shadow-xl border">
+                    <NavigationMenuContent>
+                      <div className="grid w-[750px] gap-6 p-6 md:grid-cols-3 bg-white z=99">
                         <div className="flex flex-col space-y-2 text-sm font-normal">
                           <h4 className="font-bold text-green-600 mb-2 text-base">START A BUSINESS (INDIA)</h4>
                           <Link to="/proprietorship" className="text-gray-600 hover:text-green-600">Proprietorship</Link>
@@ -308,13 +337,13 @@ const Header = () => {
                         </div>
                         <div className="flex flex-col space-y-2 text-sm font-normal">
                           <h4 className="font-bold text-green-600 mb-2 text-base">INTERNATIONAL BUSINESS</h4>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">Setup a Business in UAE</Link>
+                          <Link to="/setup-business-uae" className="text-gray-600 hover:text-green-600">Setup a Business in UAE</Link>
                           <Link to="#" className="text-gray-600 hover:text-green-600">Setup a Business in USA</Link>
                           <Link to="#" className="text-gray-600 hover:text-green-600">Setup a Business in Singapore</Link>
                           <Link to="#" className="text-gray-600 hover:text-green-600">Setup a Business in UK</Link>
                           <h4 className="font-bold text-green-600 mb-2 pt-4 text-base">TRUST / NGO</h4>
                           <Link to="/trust-registration" className="text-gray-600 hover:text-green-600">Trust Registration</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">Society Registration</Link>
+                          <Link to="/society-registration" className="text-gray-600 hover:text-green-600">Society Registration</Link>
                         </div>
                         <div className="bg-gray-50 p-4 rounded-lg flex flex-col justify-center text-center">
                             <div>
@@ -331,14 +360,14 @@ const Header = () => {
                 </NavigationMenuList>
               </NavigationMenu>
               
-              <NavigationMenu className="relative z-[100]">
+              <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="px-1 py-1 font-medium bg-transparent text-gray-700 hover:text-green-600 focus:bg-transparent data-[state=open]:bg-transparent data-[active]:bg-transparent focus:text-green-600 h-auto text-xs">
                       Registrations
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent className="z-[100]">
-                      <div className="grid w-[1000px] gap-6 p-6 md:grid-cols-4 bg-white shadow-xl border">
+                    <NavigationMenuContent>
+                      <div className="grid w-[1000px] gap-6 p-6 md:grid-cols-4 bg-white">
                         <div className="flex flex-col space-y-2 text-sm font-normal">
                             <Link to="/startup-india" className="text-gray-600 hover:text-green-600">Startup India</Link>
                             <Link to="/trade-license" className="text-gray-600 hover:text-green-600">Trade License</Link>
@@ -356,11 +385,16 @@ const Header = () => {
                             <Link to="/professional-tax-registration" className="text-gray-600 hover:text-green-600">Professional Tax Registration</Link>
                             <Link to="/rcmc-registration" className="text-gray-600 hover:text-green-600">RCMC Registration</Link>
                             <Link to="/rera-registration-for-agents" className="text-gray-600 hover:text-green-600">TN RERA Registration for Agents</Link>
+                            <Link to="/demat-of-shares" className="text-gray-600 hover:text-green-600">Demat of Shares</Link>
+                            <Link to="/winding-up-llp" className="text-gray-600 hover:text-green-600">Winding Up - LLP</Link>
+                            <Link to="/winding-up-company" className="text-gray-600 hover:text-green-600">Winding Up - Company</Link>
                         </div>
                         <div className="flex flex-col space-y-2 text-sm font-normal">
                             <Link to="/12a-80g-registration" className="text-gray-600 hover:text-green-600">12A and 80G Registration</Link>
                             <Link to="/12a-registration" className="text-gray-600 hover:text-green-600">12A Registration</Link>
                             <Link to="/80g-registration" className="text-gray-600 hover:text-green-600">80G Registration</Link>
+                            <Link to="/udyam-registration" className="text-gray-600 hover:text-green-600">Udyam Registration</Link>
+                            <Link to="/fcra-registration" className="text-gray-600 hover:text-green-600">FCRA Registration</Link>
                             <Link to="/apeda-registration" className="text-gray-600 hover:text-green-600">APEDA Registration</Link>
                             <Link to="/barcode-registration" className="text-gray-600 hover:text-green-600">Barcode Registration</Link>
                             <Link to="/bis-registration" className="text-gray-600 hover:text-green-600">BIS Registration</Link>
@@ -371,9 +405,9 @@ const Header = () => {
                             <Link to="/digital-signature" className="text-gray-600 hover:text-green-600">Digital Signature</Link>
                             <Link to="/shop-and-establishment-act" className="text-gray-600 hover:text-green-600">Shop Act Registration</Link>
                             <Link to="/drug-license" className="text-gray-600 hover:text-green-600">Drug License</Link>
-                            <Link to="#" className="text-gray-600 hover:text-green-600">Udyam Registration</Link>
-                            <Link to="#" className="text-gray-600 hover:text-green-600">FCRA Registration</Link>
-                            <Link to="#" className="text-gray-600 hover:text-green-600">Fire License</Link>
+                            <Link to="/udyam-registration" className="text-gray-600 hover:text-green-600">Udyam Registration</Link>
+                            <Link to="/fcra-registration" className="text-gray-600 hover:text-green-600">FCRA Registration</Link>
+                            <Link to="/fire-license" className="text-gray-600 hover:text-green-600">Fire License</Link>
                         </div>
                       </div>
                     </NavigationMenuContent>
@@ -381,14 +415,14 @@ const Header = () => {
                 </NavigationMenuList>
               </NavigationMenu>
               
-              <NavigationMenu className="relative z-[100]">
+              <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="px-1 py-1 font-medium bg-transparent text-gray-700 hover:text-green-600 focus:bg-transparent data-[state=open]:bg-transparent data-[active]:bg-transparent focus:text-green-600 h-auto text-xs">
                       Trademark
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent className="z-[100]">
-                      <div className="grid w-[250px] gap-6 p-6 md:grid-cols-1 bg-white shadow-xl border">
+                    <NavigationMenuContent>
+                      <div className="grid w-[250px] gap-6 p-6 md:grid-cols-1 bg-white">
                         <div className="flex flex-col space-y-2 text-sm font-normal">
                           <Link to="/trademark-registration" className="text-gray-600 hover:text-green-600">Trademark Registration</Link>
                           <Link to="/copyright-registration" className="text-gray-600 hover:text-green-600">Copyright Registration</Link>
@@ -400,14 +434,14 @@ const Header = () => {
                 </NavigationMenuList>
               </NavigationMenu>
               
-              <NavigationMenu className="relative z-[100]">
+              <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="px-1 py-1 font-medium bg-transparent text-gray-700 hover:text-green-600 focus:bg-transparent data-[state=open]:bg-transparent data-[active]:bg-transparent focus:text-green-600 h-auto text-xs">
                       GST
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent className="z-[100]">
-                      <div className="grid w-[600px] gap-6 p-6 md:grid-cols-2 bg-white shadow-xl border">
+                    <NavigationMenuContent>
+                      <div className="grid w-[600px] gap-6 p-6 md:grid-cols-2 bg-white">
                         <div className="flex flex-col space-y-2 text-sm font-normal">
                           <NavigationMenuLink asChild>
                             <Link
@@ -523,15 +557,14 @@ const Header = () => {
                 </NavigationMenuList>
               </NavigationMenu>
               
-              {/* Continue with remaining NavigationMenu components with same z-index pattern */}
-              <NavigationMenu className="relative z-[100]">
+              <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="px-1 py-1 font-medium bg-transparent text-gray-700 hover:text-green-600 focus:bg-transparent data-[state=open]:bg-transparent data-[active]:bg-transparent focus:text-green-600 h-auto text-xs">
                       Tax
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent className="z-[100]">
-                      <div className="grid w-[500px] gap-6 p-6 md:grid-cols-2 bg-white shadow-xl border">
+                    <NavigationMenuContent>
+                      <div className="grid w-[500px] gap-6 p-6 md:grid-cols-2 bg-white">
                         <div className="flex flex-col space-y-2 text-sm font-normal">
                           <Link to="/income-tax-e-filing-new" className="text-gray-600 hover:text-green-600">Income Tax E-Filing</Link>
                           <Link to="/itr-1-return-filing" className="text-gray-600 hover:text-green-600">ITR-1 Return Filing</Link>
@@ -543,10 +576,10 @@ const Header = () => {
                         <div className="flex flex-col space-y-2 text-sm font-normal">
                           <Link to="/itr-6-return-filing" className="text-gray-600 hover:text-green-600">ITR-6 Return Filing</Link>
                           <Link to="/itr-7-return-filing" className="text-gray-600 hover:text-green-600">ITR-7 Return Filing</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">15CA - 15CB Filing</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">TAN Registration</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">TDS Return Filing</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">Income Tax Notice</Link>
+                          <Link to="/15ca-15cb-filing" className="text-gray-600 hover:text-green-600">15CA - 15CB Filing</Link>
+                          <Link to="/tan-registration" className="text-gray-600 hover:text-green-600">TAN Registration</Link>
+                          <Link to="/tds-return-filing" className="text-gray-600 hover:text-green-600">TDS Return Filing</Link>
+                          <Link to="/income-tax-notice" className="text-gray-600 hover:text-green-600">Income Tax Notice</Link>
                         </div>
                       </div>
                     </NavigationMenuContent>
@@ -554,14 +587,14 @@ const Header = () => {
                 </NavigationMenuList>
               </NavigationMenu>
               
-              <NavigationMenu className="relative z-[100]">
+              <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="px-1 py-1 font-medium bg-transparent text-gray-700 hover:text-green-600 focus:bg-transparent data-[state=open]:bg-transparent data-[active]:bg-transparent focus:text-green-600 h-auto text-xs">
                       MCA
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent className="z-[100]">
-                      <div className="grid w-[1000px] gap-6 p-6 md:grid-cols-4 bg-white shadow-xl border">
+                    <NavigationMenuContent>
+                      <div className="grid min-w-[700px] gap-4 p-2 md:grid-cols-3 bg-white">
                         <div className="flex flex-col space-y-2 text-sm font-normal">
                           <Link to="/company-compliance" className="text-gray-600 hover:text-green-600">Company Compliance</Link>
                           <Link to="/llp-compliance" className="text-gray-600 hover:text-green-600">LLP Compliance</Link>
@@ -571,24 +604,24 @@ const Header = () => {
                         </div>
                         <div className="flex flex-col space-y-2 text-sm font-normal">
                           <Link to="/din-ekyc-filing" className="text-gray-600 hover:text-green-600">DIN eKYC Filing</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">DIN Reactivation</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">Director Change</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">Remove Director</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">ADT-1 Filing</Link>
+                          <Link to="/din-reactivation" className="text-gray-600 hover:text-green-600">DIN Reactivation</Link>
+                          <Link to="/director-change" className="text-gray-600 hover:text-green-600">Director Change</Link>
+                          <Link to="/remove-director" className="text-gray-600 hover:text-green-600">Remove Director</Link>
+                          <Link to="/adt1-filing" className="text-gray-600 hover:text-green-600">ADT-1 Filing</Link>
                         </div>
                         <div className="flex flex-col space-y-2 text-sm font-normal">
-                          <Link to="#" className="text-gray-600 hover:text-green-600">DPT-3 Filing</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">LLP Form 11 Filing</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">Dormant Status Filing</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">MOA Amendment</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">AOA Amendment</Link>
+                          <Link to="/dpt3-filing" className="text-gray-600 hover:text-green-600">DPT-3 Filing</Link>
+                          <Link to="/llp-form11-filing" className="text-gray-600 hover:text-green-600">LLP Form 11 Filing</Link>
+                          <Link to="dormant-status-filing" className="text-gray-600 hover:text-green-600">Dormant Status Filing</Link>
+                          <Link to="/moa-amendment" className="text-gray-600 hover:text-green-600">MOA Amendment</Link>
+                          <Link to="/aoa-amendment" className="text-gray-600 hover:text-green-600">AOA Amendment</Link>
                         </div>
                         <div className="flex flex-col space-y-2 text-sm font-normal">
-                          <Link to="#" className="text-gray-600 hover:text-green-600">Authorized Capital Increase</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">Share Transfer</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">Demat of Shares</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">Winding Up - LLP</Link>
-                          <Link to="#" className="text-gray-600 hover:text-green-600">Winding Up - Company</Link>
+                          <Link to="/authorized-capital-increase" className="text-gray-600 hover:text-green-600">Authorized Capital Increase</Link>
+                          <Link to="/share-transfer" className="text-gray-600 hover:text-green-600">Share Transfer</Link>
+                          <Link to="/Demat of Shares" className="text-gray-600 hover:text-green-600">Demat of Shares</Link>
+                          <Link to="/Winding Up - LLP" className="text-gray-600 hover:text-green-600">Winding Up - LLP</Link>
+                          <Link to="/Winding Up - Company" className="text-gray-600 hover:text-green-600">Winding Up - Company</Link>
                         </div>
                       </div>
                     </NavigationMenuContent>
@@ -596,14 +629,14 @@ const Header = () => {
                 </NavigationMenuList>
               </NavigationMenu>
               
-              <NavigationMenu className="relative z-[100]">
+              <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="px-1 py-1 font-medium bg-transparent text-gray-700 hover:text-green-600 focus:bg-transparent data-[state=open]:bg-transparent data-[active]:bg-transparent focus:text-green-600 h-auto text-xs">
                       Compliance
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent className="z-[100]">
-                      <div className="grid w-[600px] gap-6 p-6 md:grid-cols-2 bg-white shadow-xl border">
+                    <NavigationMenuContent>
+                      <div className="grid w-[600px] gap-6 p-6 md:grid-cols-2 bg-white">
                         <div className="flex flex-col space-y-2 text-sm font-normal">
                           <Link to="/fdi-filing-rbi" className="text-gray-600 hover:text-green-600">FDI Filing with RBI</Link>
                           <Link to="/fla-return-filing" className="text-gray-600 hover:text-green-600">FLA Return Filing</Link>
@@ -637,16 +670,16 @@ const Header = () => {
           </div>
 
           {/* Compact navigation for smaller screens */}
-          <div className="hidden lg:flex xl:hidden items-center justify-center flex-1 max-w-3xl mx-4">
+          <div className="hidden lg:flex xl:hidden items-center justify-center flex-1 max-w-3xl mx-4 relative z-50">
             <div className="flex items-center space-x-1 text-xs font-medium">
-              <NavigationMenu className="relative z-[100]">
+              <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="px-1 py-1 font-medium bg-transparent text-gray-700 hover:text-green-600 focus:bg-transparent data-[state=open]:bg-transparent data-[active]:bg-transparent focus:text-green-600 h-auto text-xs">
                       Business
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent className="z-[100]">
-                      <div className="grid w-[600px] gap-6 p-6 md:grid-cols-2 bg-white shadow-xl border">
+                    <NavigationMenuContent>
+                      <div className="grid w-[600px] gap-6 p-6 md:grid-cols-2 bg-white">
                         <div className="flex flex-col space-y-2 text-sm font-normal">
                           <h4 className="font-bold text-green-600 mb-2">Startup & Registration</h4>
                           <Link to="/proprietorship" className="text-gray-600 hover:text-green-600">Proprietorship</Link>
@@ -709,7 +742,7 @@ const Header = () => {
               
               {/* Search Results Dropdown */}
               {isSearchOpen && filteredServices.length > 0 && (
-                <div className="absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-[110] max-h-60 overflow-y-auto">
+                <div className="absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
                   {filteredServices.slice(0, 8).map((service, index) => (
                     <Link
                       key={index}
@@ -733,7 +766,7 @@ const Header = () => {
               
               {/* No Results Message */}
               {isSearchOpen && searchQuery && filteredServices.length === 0 && (
-                <div className="absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-[110] p-4 text-center text-gray-500 text-sm">
+                <div className="absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50 p-4 text-center text-gray-500 text-sm">
                   No services found for "{searchQuery}"
                 </div>
               )}
@@ -753,13 +786,30 @@ const Header = () => {
               </button>
               <CartDropdown isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
             </div>
-            <Link 
-              to="/auth" 
-              className="flex items-center space-x-1 text-gray-700 hover:text-green-600 transition-colors"
-            >
-              <User className="h-4 w-4 sm:h-5 sm:w-5" />
-              <span className="text-xs sm:text-sm font-medium hidden sm:inline">Login</span>
-            </Link>
+            
+            {user ? (
+              <div className="flex items-center space-x-2">
+                <span className="text-xs sm:text-sm text-gray-700 hidden sm:inline">
+                  {user.email}
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center space-x-1 text-gray-700 hover:text-green-600 transition-colors"
+                >
+                  <User className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className="text-xs sm:text-sm font-medium hidden sm:inline">Logout</span>
+                </button>
+              </div>
+            ) : (
+      <Link 
+  to="/login" 
+  className="flex items-center space-x-1 text-gray-700 hover:text-green-600 transition-colors"
+>
+  <User className="h-4 w-4 sm:h-5 sm:w-5" />
+  <span className="text-xs sm:text-sm font-medium hidden sm:inline">Login</span>
+</Link>
+             
+            )}
           </div>
         </div>
       </nav>
